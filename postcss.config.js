@@ -3,4 +3,7 @@ module.exports = {
     tailwindcss: {},
     autoprefixer: {},
   },
+  fontFamily: {
+    'hack': ['Hack Nerd Font Mono'],
+  }
 }
