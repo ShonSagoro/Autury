@@ -15,7 +15,9 @@ export default function CardForm() {
 
    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    setKeyError(
+      ""
+    )
     setResult(
       checkAutomata(matricula) ? "Matricula valida" : "Matricula Invalida"
     );

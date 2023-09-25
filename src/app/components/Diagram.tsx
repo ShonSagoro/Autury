@@ -7,82 +7,64 @@ export default function Diagram(){
 
   const {keyError} = useKeyError();
 
-  const [keyErrorLast, setKeyError]=useState("");
-
-
   const hashMap: { [key: string]: DataAutomata } = {
     "q0-q1": {
-      circleColor: "white",
       linesColor: "white",
       value: "S",
     },
     "q1-q2": {
-      circleColor: "white",
       linesColor: "white",
       value: "S..Y",
     },
     "q2-q3": {
-      circleColor: "white",
       linesColor: "white",
       value: "-",
     },
     "q3-q4": {
-      circleColor: "white",
       linesColor: "white",
       value: "0",
     },
     "q4-q5": {
-      circleColor: "white",
       linesColor: "white",
       value: "0",
     },
     "q5-q6": {
-      circleColor: "white",
       linesColor: "white",
       value: "0",
     },
     "q6-q7": {
-      circleColor: "white",
       linesColor: "white",
       value: "1..9",
     },
     "q7-q8": {
-      circleColor: "white",
       linesColor: "white",
       value: "-",
     },
     "q8-q9": {
-      circleColor: "white",
       linesColor: "white",
       value: "A..Z",
     },
     "q3-q10": {
-      circleColor: "white",
       linesColor: "white",
       value: "1..9",
     },
     "q4-q11": {
-      circleColor: "white",
       linesColor: "white",
       value: "1..9",
     },
     "q5-q12": {
-      circleColor: "white",
       linesColor: "white",
       value: "1..9",
     },
     "q10-q11": {
-      circleColor: "white",
       linesColor: "white",
       value: "0..9",
     },
     "q11-q12": {
-      circleColor: "white",
       linesColor: "white",
       value: "0..9",
     },
     "q12-q7": {
-      circleColor: "white",
       linesColor: "white",
       value: "0..9",
     },
@@ -254,7 +236,6 @@ export default function Diagram(){
 
 
 type DataAutomata = {
-    circleColor: string;
     linesColor: string;
     value: string;
   };
