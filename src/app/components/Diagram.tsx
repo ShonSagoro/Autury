@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import useKeyError from "../context/KeyErrorContext";
+import useKeyEval from "../context/KeyEvalContext";
 
 
 export default function Diagram(){
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const {keyError} = useKeyError();
+  const {keyEval} = useKeyEval();
 
   const hashMap: { [key: string]: DataAutomata } = {
     "q0-q1": {
@@ -70,6 +72,22 @@ export default function Diagram(){
     },
   };
 
+  const hashMapEval: { [key: string]: string } = {
+    "q0": "white",
+    "q1": "white",
+    "q2": "white",
+    "q3": "white",
+    "q4": "white",
+    "q5": "white",
+    "q6": "white",
+    "q7": "white",
+    "q8": "white",
+    "q9": "white",
+    "q10": "white",
+    "q11": "white",
+    "q12": "white",    
+  };
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -77,16 +95,16 @@ export default function Diagram(){
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const drawCircle = (circle: Circle) => {
+    const drawCircle = (circle: Circle, color:string) => {
       ctx.beginPath();
       ctx.arc(circle.x, circle.y, circle.r, 0, 2 * Math.PI);
-      ctx.strokeStyle = "white";
+      ctx.strokeStyle = color;
       ctx.fillStyle = "transparent";
       ctx.lineWidth = 2;
       ctx.stroke();
       ctx.closePath();
 
-      ctx.fillStyle = "white";
+      ctx.fillStyle = color;
       if (circle.message != "") {
         writeInCircles(circle.x, circle.y, circle.message, ctx);
       }
@@ -164,7 +182,7 @@ export default function Diagram(){
         };
 
         if (i < 4 || i > 6) {
-          drawCircle(circle);
+          drawCircle(circle, hashMapEval[`q${i}`]);
 
           if (i != 9) {
             drawLine(line, hashMap[`q${i}-q${i + 1}`], circle.r);
@@ -177,13 +195,13 @@ export default function Diagram(){
                 r: 20,
                 message: "",
             };
-            drawCircle(circle_final);
-        }
+            drawCircle(circle, hashMapEval[`q${i}`]);
+          }
         if (i == 3) {
             drawDiagonalLine(line, hashMap[`q${i}-q${i + 7}`], circle.r, -75);
           }
         } else {
-          drawCircle(circle);
+          drawCircle(circle, hashMapEval[`q${i}`]);
           drawLine(line, hashMap[`q${i}-q${i + 1}`], circle.r);
           const topCircle = {
             x: 50 + i * 100,
@@ -209,23 +227,23 @@ export default function Diagram(){
           if (i == 6) {
             drawDiagonalLine(topLine, hashMap[`q${i+6}-q${i + 1}`], circle.r, 75);
           }
-
-          drawCircle(topCircle);
+          drawCircle(topCircle, hashMapEval[`q${i+6}`]);
         }
       }
     };
 
     const checkDiagram =()=>{
-        if (keyError!="correct" && keyError!="incorrect" && keyError!="" &&keyError!= undefined) {
-            hashMap[keyError].linesColor = "red";
-        }else if (keyError=="incorrect"){
-            console.log("haha");
+        const checkError=keyEval?.split("-")
+        if (checkError!= undefined && checkError[1]=="error") {
+            hashMapEval[checkError[0]] = "red";
+          }else if (keyEval!=undefined){
+            hashMapEval[keyEval] = "green";
         }
     }
     checkDiagram();
     drawDiagram();
     
-  }, [keyError]);
+  }, [keyEval]);
 
   return (
     <div className="h-full w-full flex justify-center items-center">
