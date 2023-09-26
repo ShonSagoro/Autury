@@ -195,7 +195,7 @@ export default function Diagram(){
                 r: 20,
                 message: "",
             };
-            drawCircle(circle, hashMapEval[`q${i}`]);
+          drawCircle(circle_final, hashMapEval[`q${i}`]);
           }
         if (i == 3) {
             drawDiagonalLine(line, hashMap[`q${i}-q${i + 7}`], circle.r, -75);
