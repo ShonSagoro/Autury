@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import useKeyError from "../context/KeyErrorContext";
 import useKeyEval from "../context/KeyEvalContext";
 
 
 export default function Diagram(){
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  const {keyError} = useKeyError();
   const {keyEval} = useKeyEval();
 
   const hashMap: { [key: string]: DataAutomata } = {
@@ -251,7 +248,6 @@ export default function Diagram(){
     </div>
   );
 };
-
 
 type DataAutomata = {
     linesColor: string;

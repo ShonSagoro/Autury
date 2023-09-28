@@ -4,21 +4,20 @@ import React, { useState, FormEvent } from "react";
 
 import { checkAutomata, checkGrafAutomata } from "../utils/checksAutomata";
 import Diagram from "./Diagram";
-import useKeyError from "../context/KeyErrorContext";
 import useKeyEval from "../context/KeyEvalContext";
 
 export default function CardForm() {
-  const { keyError, setKeyError } = useKeyError();
   const {check}= useKeyEval();
   const [matricula, setMatricula] = useState("");
   const [result, setResult] = useState("");
- 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  
+  const handleSubmit = async(event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setResult("")
+    await check(matricula);
     setResult(
       checkAutomata(matricula) ? "Matricula valida" : "Matricula Invalida"
     );
-    check(matricula);
   };
 
   const handleMatricula = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +40,7 @@ export default function CardForm() {
             <ul className="p-3">
               <li>SS-0001-A</li>
               <li>SV-1000-F</li>
-              <li>SR-0101-H</li>
+              <li>SU-0101-H</li>
               <li>SX-0213-R</li>
             </ul>
 
