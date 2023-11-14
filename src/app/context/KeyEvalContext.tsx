@@ -138,11 +138,13 @@ export const KeyEvalProvider = (props: PropsWithChildren) => {
     const executeWithDelay = async (
       fn: (arg: any) => void,
       args: any
-      ): Promise<void> => {
+      ): Promise<void> => { 
         fn(args);
         await wait(seconds);
       };
       await executeWithDelay(setKeyEval, state);
+
+
     for (const char of matriculaChain) {
         state=validateChar(state, char)
         const checkError=keyEval?.split("-")
